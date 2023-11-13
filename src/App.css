@@ -13,17 +13,20 @@
   }
 }
 
-.myCircle{
-  border:5px solid black;
-}
-
-circle:hover{
-  transform: scale(1.2);
-  border: 10px solid transparent;
-}
-
 body{
     background-color: #282c34;
+}
+
+circle {
+  transition: opacity .25s ease-in-out;
+  opacity: .75;
+}
+
+circle:hover {
+  transform: scale(1.2);
+  opacity:1;
+  stroke: black;
+  stroke-width: 4;
 }
 
 .App-header {

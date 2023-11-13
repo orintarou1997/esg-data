@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 
 const chart = () => {
   // Specify the dimensions of the chart.
-  const width = 1856;
+  const width = 600;
   const height = 600;
   const margin = 1; // to avoid clipping the root circle stroke
-  const name = d => d.id.split(".").pop(); // "Strings" of "flare.util.Strings"
-  const group = d => d.id.split(".")[1]; // "util" of "flare.util.Strings"
-  const names = d => name(d).split(/(?=[A-Z][a-z])|\s+/g); // ["Legend", "Item"] of "flare.vis.legend.LegendItems"
+ // const name = d => d.id.split(".").pop(); // "Strings" of "flare.util.Strings"
+ // const group = d => d.id.split(".")[1]; // "util" of "flare.util.Strings"
+ // const names = d => name(d).split(/(?=[A-Z][a-z])|\s+/g); // ["Legend", "Item"] of "flare.vis.legend.LegendItems"
 
   // Specify the number format for values.
   const format = d3.format(",d");
@@ -31,6 +31,7 @@ const chart = () => {
   const svg = d3.create("svg")
       .attr("width", width)
       .attr("height", height)
+      .attr("transform", "rotate(60)")
       .attr("viewBox", [-margin, -margin, width, height])
       .attr("style", "max-width: 100%; height: auto; font: 20px sans-serif;")
       .attr("text-anchor", "middle");
@@ -49,8 +50,10 @@ const chart = () => {
   // Add a filled circle.
   node.append("circle")
       .attr("fill-opacity", 0.7)
-      .attr("fill", d => color(group(d.data)))
+      //.attr("fill", d => color(group(d.data)))
       .attr("r", d => d.r)
+      .on('mouseover', d => console.log(d.mass));
+
 
   // Add a label.
   // const text = node.append("text")
@@ -74,7 +77,7 @@ const chart = () => {
   return Object.assign(svg.node(), {scales: {color}});
 }
 
-const Barchart = () => {
+const BubbleChart = () => {
 	var frag = document.createDocumentFragment();
 	var mydiv = document.createElement('div');
 	mydiv.innerHTML = chart().outerHTML;
@@ -86,11 +89,11 @@ const Barchart = () => {
 };
 
 const data = [
-	{id:'one', value:3000},
+	{id:'one', value:6000},
 	{id:'two', value:3000},
 	{id:'three', value:2800},
   {id:'four', value:2800},
   {id:'five', value:2500},
 ]
 
-export default Barchart;
+export default BubbleChart;
