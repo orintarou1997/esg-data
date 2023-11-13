@@ -13,8 +13,20 @@
   }
 }
 
+.myCircle{
+  border:5px solid black;
+}
+
+circle:hover{
+  transform: scale(1.2);
+  border: 10px solid transparent;
+}
+
+body{
+    background-color: #282c34;
+}
+
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
