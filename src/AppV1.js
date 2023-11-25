@@ -1,6 +1,8 @@
+import logo from './logo.svg';
+import './App.css';
+import AlterTable from './components/AlterTable';
+import React, { Component } from 'react';
 import * as d3 from 'd3';
-import { useEffect, useRef } from "react";
-
 
 const chart = () => {
   // Specify the dimensions of the chart.
@@ -27,8 +29,32 @@ const chart = () => {
   const root = pack(d3.hierarchy(data)
       .sum(d => d.value));
 
+  var showTooltip = function(d){
+    tooltip
+      .transition()
+      .duration(200)
+    tooltip
+      .style("opacity", 1)
+      .html("Country: " + d.target['__data__'].data.name)
+      .style("left", (d.x) - 150 + "px")
+      .style("top", (d.y) + 50 + "px")
+  }
+
+  var moveTooltip = function(d) {
+    tooltip
+      .style("left", (d.x) - 50 + "px")
+      .style("top", (d.y) + 50 + "px")
+  }
+
+  var hideTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+  }
   // Create the SVG container.
-  const svg = d3.create("svg")
+  const svg = d3.select("#bubble")
+  	.append('svg')
       .attr("width", width)
       .attr("height", height)
       .attr("viewBox", [-margin, -margin, width, height])
@@ -41,7 +67,10 @@ const chart = () => {
     .data(root.descendants().slice(1)) 
     .join("circle")
       .attr("fill", d => d.children ? color(d.depth) : "white")
-
+      .on('mouseover', showTooltip)
+      .on("mousemove", moveTooltip)
+      .on("mouseleave", hideTooltip)
+    
   // Append the text labels.
   const label = svg.append("g")
       .style("font", "10px sans-serif")
@@ -55,41 +84,42 @@ const chart = () => {
       .style("display", d => d.parent === root ? "inline" : "inline")
       .text(d => d.data.name)
 
-  // Create the zoom behavior and zoom immediately in to the initial focus node.
-  svg.on("click", (event) => zoom(event, root));
+
+  // // Create the zoom behavior and zoom immediately in to the initial focus node.
+  //svg.on("click", (event) => zoom(event, root));
   let focus = root;
   let view;
   zoomTo([focus.x, focus.y, focus.r * 2]);
 
-  function zoomTo(v) {
-    const k = width / v[2];
+   function zoomTo(v) {
+     const k = width / v[2];
 
-    view = v;
+  //   view = v;
 
-    label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-    node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-    node.attr("r", d => d.r * k);
-  }
+     label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+     node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+     node.attr("r", d => d.r * k);
+   }
 
-  function zoom(event, d) {
-    const focus0 = focus;
+  // function zoom(event, d) {
+  //   const focus0 = focus;
 
-    focus = d;
+  //   focus = d;
 
-    const transition = svg.transition()
-        .duration(event.altKey ? 7500 : 750)
-        .tween("zoom", d => {
-          const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
-          return t => zoomTo(i(t));
-        });
+  //   const transition = svg.transition()
+  //       .duration(event.altKey ? 7500 : 750)
+  //       .tween("zoom", d => {
+  //         const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
+  //         return t => zoomTo(i(t));
+  //       });
 
-    label
-      .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
-      .transition(transition)
-        .style("fill-opacity", d => d.parent === focus ? 1 : 1)
-        .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
-        .on("end", function(d) { if (d.parent !== focus) this.style.display = "inline"; });
-  }
+  //   label
+  //     .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+  //     .transition(transition)
+  //       .style("fill-opacity", d => d.parent === focus ? 1 : 1)
+  //       .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
+  //       .on("end", function(d) { if (d.parent !== focus) this.style.display = "inline"; });
+  // }
 
 
 
@@ -102,17 +132,7 @@ const chart = () => {
   .style("padding", "10px")
   .style("color", "white")
 
-  var showTooltip = function(d){
-    console.log("show");
-    tooltip
-      .transition()
-      .duration(200)
-    tooltip
-      .style("opacity", 1)
-      .html("Country: " + d.country)
-      .style("left", (d3.pointer(this)[0]+ 30) + "px")
-      .style("top", (d3.pointer(this)[1] + 30) + "px")
-  }
+
 
   // Create the zoom behavior and zoom immediately in to the initial focus node.
   //svg.on("click", (event) => zoom(event, root))
@@ -147,29 +167,48 @@ const chart = () => {
   //     .attr("fill-opacity", 0.7)
   //     .text(d => format(d.value));
 
-  return Object.assign(svg.node(), {scales: {color}});
+  return [Object.assign(svg.node(), {scales: {color}}), root.descendants().slice(1)];
 }
-
-const BubbleChart = () => {
-  var frag = document.createDocumentFragment();
-  var mydiv = document.createElement('div');
-  mydiv.innerHTML = chart().outerHTML;
-
-  while( mydiv.firstChild ) {
-      frag.appendChild( mydiv.firstChild );
-  }
-  return frag;
-};
 
 const data = {
   name: "Eve",
   value:50,
   children: [
     {name: "Cain", value:10},
-    {name: "", children: [{name: "Enos", value:10}, {name: "Noam", value:10}]},
+    {name: "One", children: [{name: "Enos", value:10}, {name: "Noam", value:10}]},
     {name: "Abel", value:10},
-    {name: "", children: [{name: "Enoch", value:10}, {name: "Aenoch", value:10}, {name: "Baenoch", value:10}]},
+    {name: "Two", children: [{name: "Enoch", value:10}, {name: "Aenoch", value:10}, {name: "Baenoch", value:10}]},
     {name: "Azura", value:10}
   ]
 };
-export default BubbleChart;
+
+class AppV1 extends Component {
+
+	constructor(props){
+		super(props);
+		this.state = {
+			data: []
+		}
+	}
+
+	componentDidMount(){
+		const data1 = chart()[1];
+		this.setState({
+			data: data1
+		})
+	}
+
+	render(){
+	const myNewData = this.state.data;
+	  return (
+	  	<div className="App">
+	      <header className="App-header">
+	      <div id="bubble">
+	      </div>
+	      </header>
+	    </div>
+	  );
+	}
+}
+
+export default AppV1;

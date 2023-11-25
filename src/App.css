@@ -7,6 +7,24 @@
   pointer-events: none;
 }
 
+#bubble{
+  position: fixed;
+  left: 0%;
+  top:00%;
+}
+
+.alter-table{
+}
+.list-header{
+}
+
+.list-item{
+  background-color: gray;
+  border: 2px solid black;
+  list-style-type: none;
+  margin-left: 100px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -17,16 +35,29 @@ body{
     background-color: #282c34;
 }
 
+.tooltip{
+  position: absolute;
+  width: 50px;
+  font-size: .5em;
+  z-index: 99;
+}
+
+#table{
+}
+
 circle {
+  fill:white;
   transition: opacity .25s ease-in-out;
   opacity: .75;
 }
 
+g {
+  transform: translate(250px,250px)
+}
+
 circle:hover {
-  transform: scale(1.2);
-  opacity:1;
-  stroke: black;
-  stroke-width: 4;
+  stroke:black;
+  stroke-width:5;
 }
 
 .App-header {
@@ -50,4 +81,35 @@ circle:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+#tabs ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+#tabs li {
+  float: left;
+}
+
+#tabs li {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.tab:hover {
+  background-color: #111111;
+}
+
+#tabs {
+  position:fixed;
+  bottom:0%;
+  width: 100%;
+  z-index: 98;
 }
