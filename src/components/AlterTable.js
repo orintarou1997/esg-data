@@ -6,15 +6,45 @@ class AlterTable extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			data: props.data,
+			data: [],
 		}
+	}
+
+	componentDidMount(){
+		  const width = 528;
+		  const height = width;
+		  const margin = 1; // to avoid clipping the root circle stroke
+		 // const name = d => d.id.split(".").pop(); // "Strings" of "flare.util.Strings"
+		 // const group = d => d.id.split(".")[1]; // "util" of "flare.util.Strings"
+		 // const names = d => name(d).split(/(?=[A-Z][a-z])|\s+/g); // ["Legend", "Item"] of "flare.vis.legend.LegendItems"
+
+		  // Specify the number format for values.
+		  const format = d3.format(",d");
+
+		  // Create a categorical color scale.
+		  const color = d3.scaleOrdinal(d3.schemeTableau10);
+
+		  // Create the pack layout.
+		  const pack = d3.pack()
+		      .size([width - margin * 2, height - margin * 2])
+		      .padding(30);
+
+		  // Compute the hierarchy from the (flat) data; expose the values
+		  // for each node; lastly apply the pack layout.
+		  const root = pack(d3.hierarchy(this.props.data)
+		      .sum(d => d.value));
+
+		  this.setState({
+		  	data: root.descendants().slice(1)
+		  })
+
 	}
 
 	render(){
 		 return (
 		    <div className='alter-table'>
 		    	{
-		    		this.props.data.map((item) => {
+		    		this.state.data.map((item) => {
 		    			if(item.children){
 		    				var myLabel = item.data.name;
 		    				var myLabelScore = 0;

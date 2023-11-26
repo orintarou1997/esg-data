@@ -9,20 +9,33 @@
 
 #bubble{
   position: fixed;
-  left: 0%;
-  top:00%;
+  height: 100vh;
+  left: 10%;
+  top:0%;
 }
 
 .alter-table{
+  color:black;
+  position:fixed;
+  top:15%;
+  right: 30%;
+  font-size: 18px;
 }
 .list-header{
+  text-align: left;
+  padding:0px;
+  margin:0px;
 }
 
 .list-item{
-  background-color: gray;
   border: 2px solid black;
   list-style-type: none;
-  margin-left: 100px;
+  text-align:center;
+  margin-left: 0px;
+}
+
+.list-header:hover{
+  background-color: grey;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -32,7 +45,7 @@
 }
 
 body{
-    background-color: #282c34;
+    background-color: white;
 }
 
 .tooltip{
@@ -42,11 +55,7 @@ body{
   z-index: 99;
 }
 
-#table{
-}
-
 circle {
-  fill:white;
   transition: opacity .25s ease-in-out;
   opacity: .75;
 }
@@ -83,23 +92,31 @@ circle:hover {
   }
 }
 
+#tabs{
+  display:flex;
+  justify-content: center;
+}
+
 #tabs ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333333;
 }
 
 #tabs li {
+  background-color: white;
   float: left;
 }
 
 #tabs li {
   display: block;
-  color: white;
+  border: 0px solid rgb(25, 190, 135);
+  border-radius: 10px;
+  color: rgb(25, 190, 135);
   text-align: center;
-  padding: 16px;
+  padding: 2px;
+  margin: 6px;
   text-decoration: none;
 }
 
