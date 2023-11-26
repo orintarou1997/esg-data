@@ -32,7 +32,7 @@ const chart = (data) => {
       .duration(200)
     tooltip
       .style("opacity", 1)
-      .html("Country: " + d.target['__data__'].data.name)
+      .html("Name: " + d.target['__data__'].data.name)
       .style("left", (d.x) - 150 + "px")
       .style("top", (d.y) + 50 + "px")
   }
@@ -55,7 +55,7 @@ const chart = (data) => {
       .attr("width", width)
       .attr("height", height/1.2)
       .attr("viewBox", [-margin, -margin, width, height])
-      .attr("style", "width: 100%; height:auto;")
+      .attr("style", "max-width: 100%; height:auto;")
       .attr("text-anchor", "middle")
 
   // Place each (leaf) node according to the layout’s x and y values.
@@ -70,7 +70,7 @@ const chart = (data) => {
     
   // Append the text labels.
   const label = svg.append("g")
-      .style("font", "15px sans-serif")
+      .style("font", "10px sans-serif")
       .style('font-weight', "bold")
       .attr("pointer-events", "none")
       .attr("text-anchor", "middle")

@@ -52,7 +52,7 @@ body{
   position: absolute;
   width: 50px;
   font-size: .5em;
-  z-index: 99;
+  z-index: 96;
 }
 
 circle {
@@ -76,7 +76,7 @@ circle:hover {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {

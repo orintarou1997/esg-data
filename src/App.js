@@ -9,13 +9,11 @@ const data = {
   name: "Eve",
   value:50,
   children: [
-    {name: "Sandbox", value:500},
-    {name: "Intra-Organziation", children: [{name: "A", value:100}, {name: "B", value:100},  {name: "C", value:100}]},
-    {name: "Community Development", value:500},
-    {name: "ESG Fellowship", children: [{name: "A", value:10}, {name: "B", value:10}, {name: "C", value:10}]},
-    {name: "Software", value:500},
-    {name: "Business", value:500},
-    
+    {name: "Sandbox", value:100},
+    {name: "Intra-Organziation", value:100},
+    {name: "Community Development", value:100},
+    {name: "ESG Fellowship", value:100},
+    {name: "Software", value:100},
   ]
 };
 
@@ -23,13 +21,13 @@ class App extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			tab: 'V1'
+			tab: 'V2'
 		}
 		this.welcome = this.welcome.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 	}
 	componentDidMount(){
-		document.querySelector('.tabOne').style.backgroundColor = 'black';
+		document.querySelector('.tabTwo').style.backgroundColor = 'black';
 	}
 	handleClick(e){
 		this.setState({
@@ -39,16 +37,16 @@ class App extends Component {
 
 	welcome(p) {
 		if(p === 'V1'){
-			if(document.querySelector('.tabOne')){
-				document.querySelector('.tabOne').style.backgroundColor = 'black';
-				document.querySelector('.tabTwo').style.backgroundColor = 'white';
-				document.querySelector('.tabThree').style.backgroundColor = 'white';
-			}
+			document.querySelector('.tabOne').style.backgroundColor = 'black';
+			document.querySelector('.tabTwo').style.backgroundColor = 'white';
+			document.querySelector('.tabThree').style.backgroundColor = 'white';
 			return <AppV1 data={data}/>;		
 		}else if(p === 'V2'){
-			document.querySelector('.tabOne').style.backgroundColor = 'white';
-			document.querySelector('.tabTwo').style.backgroundColor = 'black';
-			document.querySelector('.tabThree').style.backgroundColor = 'white';
+			if(document.querySelector('.tabOne')){
+				document.querySelector('.tabOne').style.backgroundColor = 'white';
+				document.querySelector('.tabTwo').style.backgroundColor = 'black';
+				document.querySelector('.tabThree').style.backgroundColor = 'white';
+			}
 			return <AppV2 data={data}/>
 		}else if(p === 'V3'){
 			document.querySelector('.tabOne').style.backgroundColor = 'white';
@@ -59,13 +57,13 @@ class App extends Component {
 	render(){
 	  var myTab = this.state.tab;
 	  return (
-	    <div className="App">
+	    <div className="">
 	    	<header className="App-header">
+
 		      {
 		      	this.welcome(myTab)
 		      }
 	      	<div id="tabs">
-
 		      	<ul>
 		      		<li onClick={(e) => this.handleClick(e)} className="tab tabOne">V1</li>
 		      		<li onClick={(e) => this.handleClick(e)} className="tab tabTwo">V2</li>
