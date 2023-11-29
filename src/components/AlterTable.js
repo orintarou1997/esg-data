@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
-
+const data = {
+  name: "Eve",
+  value:50,
+  children: [
+    {name: "Sandbox", value:500},
+    {name: "Intra-Organziation"},
+    {name: "Community Development", value:500},
+    {name: "ESG Fellowship"},
+    {name: "Software", value:500},
+    {name: "Business", value:500},
+    
+  ]
+};
 class AlterTable extends Component {
 	
 	constructor(props){
@@ -31,7 +43,7 @@ class AlterTable extends Component {
 
 		  // Compute the hierarchy from the (flat) data; expose the values
 		  // for each node; lastly apply the pack layout.
-		  const root = pack(d3.hierarchy(this.props.data)
+		  const root = pack(d3.hierarchy(data)
 		      .sum(d => d.value));
 
 		  this.setState({
@@ -77,29 +89,3 @@ class AlterTable extends Component {
 }
 
 export default AlterTable;
-
-{/*
-			    					<li>{item.data.name}
-			    					<ul>
-			    					<li>{child.name}</li>
-			    					</ul>
-			    					</li>*/}
-
-{/*			    	<li>InnerOne</li>
-			    	<li>InnerTwo
-			    		<ul>
-			    		<li>Innto</li>
-			    		<li>Intooo</li>
-			    		</ul>
-			    	</li>
-
-			    	<li>InnerThree</li>
-
-*/}
-
-// .list-item{
-//   background-color: gray;
-//   border: 2px solid black;
-//   list-style-type: none;
-//   margin-left: 100px;
-// }
