@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-#bubble{
-  position:fixed;
-  left: 10%;
-  width: 50%;
-}
-
 .alter-table{
   color:black;
   position:fixed;
@@ -84,32 +78,4 @@ circle:hover {
   to {
     transform: rotate(360deg);
   }
-}
-
-#tabs{
-  display:flex;
-  justify-content: center;
-}
-
-
-#tabs li {
-  display: block;
-  border: 0px solid rgb(25, 190, 135);
-  border-radius: 10px;
-  color: rgb(25, 190, 135);
-  text-align: center;
-  padding: 2px;
-  margin: 6px;
-  text-decoration: none;
-}
-
-.tab:hover {
-  background-color: #111111;
-}
-
-#tabs {
-  position:fixed;
-  bottom:0%;
-  width: 100%;
-  z-index: 98;
 }

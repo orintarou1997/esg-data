@@ -61,18 +61,21 @@ class App extends Component {
 	  return (
 	    <div>
 	    	<header>
-
 		      {
 		      	this.welcome(myTab)
 		      }
-	      	<div id="tabs" className="flex justify-center">
+	      	<div id="tabs" className="fixed bottom-0 z-50 w-full flex justify-center">
 		      	<ul>
 		      	{
-		      		[...Array(tabCount)].map((e, i) => <li className="float-left">Hello</li>)
+		      		[...Array(tabCount)].map((e, i) => {
+		      			const myTabNumber = (i === 0) ? 'One' :
+		      					(i === 1) ? 'Two' :
+		      					'Three';
+		      			return (<li id={'tab' + myTabNumber} onClick={(e) => this.handleClick(e)} className="float-left block rounded-lg text-[#19be87] text-center m-1.5 px-0.5">
+		      			{'V'+ (i+1)}
+		      			</li>)
+		      		})
 		      	}
-		      		<li onClick={(e) => this.handleClick(e)} id="tabOne" className="">V1</li>
-	      			<li onClick={(e) => this.handleClick(e)} id="tabTwo" className="">V2</li>
-		      		<li onClick={(e) => this.handleClick(e)} id="tabThree" className="">V3</li>
 		      	</ul>
 	      	</div>
 	      	</header>

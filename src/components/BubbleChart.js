@@ -177,8 +177,14 @@ class AppV1 extends Component {
 
 	render(){
 	const myNewData = this.state.data;
+  const versionClass = (this.state.version === 1) ?
+    'fixed left-1/4 w-1/2':
+    (this.state.version === 2) ?
+    '':
+    '';
+
 	  return (
-	      <div id="bubble" className={this.state.version}>
+	      <div id="bubble" className={versionClass}>
 	      </div>
 	  );
 	}
