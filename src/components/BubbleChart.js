@@ -25,26 +25,20 @@ function chart(data, {
   strokeWidth, // the stroke width around the bubbles, if any
   strokeOpacity, // the stroke opacity around the bubbles, if any
 } = {}) {
-
+  console.log('tupac')
   var tooltip = d3.select("#bubble")
   .append('div')
-  .style('opacity',0)
-  .attr("class", "tooltip text-xl")
-  .style("background-color", "white")
-  .style("border", "2px solid black")
-  .style("border-radius", "5px")
-  .style("padding", "10px")
-  .style("color", "black")
-
+  .style('opacity',1)
    var showTooltip = function(d, T){
     tooltip
       .transition()
       .duration(200)
     tooltip
       .style("opacity", 1)
-      .html("Green\nRed\nBlue\nPurple\nYellow")
+      .html("<span class='text-green-700'>Green</span>\n<span class='text-red-700'>Red</span>\n<span class='text-blue-700'>Blue</span>\n<span class='text-purple-700'>Purple</span>\n<span class='text-yellow-700'>Yellow</span>")
       .style("left", (d.x) + "px")
       .style("top", (d.y) + "px")
+      .attr("class", "bg-white p-2.5 border-2 border-black absolute w-[50px] text-[10px] z-40")
   }
 
   var moveTooltip = function(d) {
@@ -86,32 +80,24 @@ function chart(data, {
 
   const svg = d3.select("#bubble")
         .append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("viewBox", [-marginLeft, -marginTop, width, height])
-      .attr("style", "min-width: 50%; height: auto; height: intrinsic;")
-      .attr("fill", "currentColor")
-      .attr("font-size", 10)
-      .attr("font-family", "sans-serif")
-      .attr("text-anchor", "middle");
+        .attr("class", 'w-1/2 ' + 'text-[10px] ')
+        .attr("viewBox", [-marginLeft, -marginTop, width, height])
+        .attr("text-anchor", "middle");
 
   const leaf = svg.selectAll("a")
     .data(root.leaves())
     .join("a")
       .attr("transform", d => `translate(${d.x},${d.y})`)
-
-
-  leaf.append("circle")
-      .attr("stroke", 'black')
-      .attr("stroke-width", strokeWidth)
-      .attr("stroke-opacity", strokeOpacity)
-      .attr("fill", G ? d => color(G[d.data]) : fill == null ? "none" : fill)
-      .attr("fill-opacity", fillOpacity)
-      .attr("r", d => d.r)
       .on('mouseover', d => showTooltip(d, T))
       .on("mousemove", moveTooltip)
       .on("mouseleave", hideTooltip)
       
+  leaf.append("circle")
+      .attr("fill", G ? d => color(G[d.data]) : fill == null ? "none" : fill)
+      .attr("fill-opacity", fillOpacity)
+      .attr("r", d => d.r)
+      .attr("class", "opacity-[.75] stroke-black hover:stroke-2 hover:stroke-red-700")
+  
 
 
   // if (T) leaf.append("title")
@@ -138,17 +124,6 @@ function chart(data, {
 
   return [Object.assign(svg.node(), {scales: {color}}), []];
 }
-// const data = {
-//   name: "Eve",
-//   value:50,
-//   children: [
-//     {name: "Cain", value:10},
-//     {name: "One", children: [{name: "Enos", value:10}, {name: "Noam", value:10}]},
-//     {name: "Abel", value:10},
-//     {name: "Two", children: [{name: "Enoch", value:10}, {name: "Aenoch", value:10}, {name: "Baenoch", value:10}]},
-//     {name: "Azura", value:10}
-//   ]
-// };
 
 class AppV1 extends Component {
 
@@ -161,8 +136,8 @@ class AppV1 extends Component {
 	}
 
 	componentDidMount(){
-    console.log(this.state.data);
     //const files = this.state.data.filter(d => d.value !==null)
+    console.log(this.state.data);
 		var chartResults = chart(this.state.data, {
       label: d => [...d.id.split(".").pop().split(/(?=[A-Z][a-z])/g), d.value.toLocaleString("en")].join("\n"),
       value: d => d.value,
@@ -170,21 +145,26 @@ class AppV1 extends Component {
       title: d => `${d.id}\n${d.value.toLocaleString("en")}`,
       width: window.innerWidth/2, 
     })
+
+    console.log(chartResults[1]);
 		this.setState({
 			data: chartResults[1]
 		})
 	}
 
+
 	render(){
 	const myNewData = this.state.data;
   const versionClass = (this.state.version === 1) ?
-    'fixed left-1/4 w-1/2':
+    'fixed left-[10%]':
     (this.state.version === 2) ?
     '':
     '';
 
+    console.log((this.state.data));
+
 	  return (
-	      <div id="bubble" className={versionClass}>
+	      <div id="bubble">
 	      </div>
 	  );
 	}

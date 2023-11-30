@@ -5,6 +5,9 @@ module.exports = {
   	"./public index.html"
   ],
   theme: {
+  	fontSize: {
+            'xs': '1em',
+        },
     extend: {},
   },
   plugins: [],

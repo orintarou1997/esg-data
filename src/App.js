@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import AppV1 from './AppV1';
 import AppV2 from './AppV2';
+import AppV3 from './AppV3';
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
@@ -52,6 +53,7 @@ class App extends Component {
 			document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabThree').classList.replace('bg-white', 'bg-black');
+			return <AppV3 data={data}/>
 		}
 	}
 	render(){

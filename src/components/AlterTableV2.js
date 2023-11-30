@@ -4,23 +4,35 @@ import * as d3 from 'd3';
 const data = {
   name: "Eve",
   value:50,
-  children: [
-    {name: "Sandbox", value:500},
-    {name: "Intra-Organziation"},
-    {name: "Community Development", value:500},
-    {name: "ESG Fellowship"},
-    {name: "Software", value:500},
-    {name: "Business", value:500},
-    
-  ]
+  children:   [
+    {id:0, name: "Sandbox",value:50},
+    {id:1, name: "Intra-Organziation", value:100},
+    {id:2, name: "Community Development", value:100},
+    {id:3, name: "ESG Fellowship", value:100},
+    {id:4, name: "Software", value:200},
+    {id:5, name: "Business Model Strategy", value:100},
+    ]
 };
-class AlterTable extends Component {
+
+class AlterTableV2 extends Component {
 	
 	constructor(props){
 		super(props);
 		this.state = {
 			data: [],
 		}
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick(e){
+		var newData = this.state.data;
+		newData[e.data.id].data.value -= 5;
+		//var newValue = this.state.data[e.data.id].data.value;
+
+		this.props.handler(e.data.id);
+		this.setState({
+			data: newData
+		})
 	}
 
 	componentDidMount(){
@@ -55,14 +67,20 @@ class AlterTable extends Component {
 
 	render(){
 		 return (
-		    <div className='fixed right-[0%] top-[20%] w-2/4 text-black'>
+		    <div className='fixed right-[0%] top-[10%] w-2/4 text-black'>
 		    	{
 		    		this.state.data.map((item) => {
 		    					return (
-		    							<ul className="w-[30%] hover:bg-zinc-300">{item.data.name}
-		    							</ul>
-		    						)
+		    						<div >
+		    							<span className="text-green-300">{item.data.value}</span>
+		    							<li className="rounded-lg border-black border-2 list-none mb-4 min-w-fit w-[40%] hover:bg-zinc-300">
 		    			
+		    							<span>{item.data.name}</span>
+		    								<span onClick={e => this.handleClick(item)} className="float-right text-lg text-center w-[20px] mr-[10px] hover:bg-zinc-500">-</span>
+		    								<span onClick={e => this.handleClick(item)} className="float-right text-lg text-center w-[20px]  hover:bg-zinc-500">+</span>
+		    							</li>
+		    						</div>
+		    						)
 		    		})
 		    	}
 		    </div>
@@ -70,4 +88,4 @@ class AlterTable extends Component {
 	}
 }
 
-export default AlterTable;
+export default AlterTableV2;
