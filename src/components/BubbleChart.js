@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
-
+//data clean
 function chart(data, {
   name = ([x]) => x, // alias for label
   label = name, // given d in data, returns text to display on the bubble
@@ -25,7 +25,8 @@ function chart(data, {
   strokeWidth, // the stroke width around the bubbles, if any
   strokeOpacity, // the stroke opacity around the bubbles, if any
 } = {}) {
-  console.log('tupac')
+
+  document.querySelector('#bubble').innerHTML = '';
   var tooltip = d3.select("#bubble")
   .append('div')
   .style('opacity',1)
@@ -131,24 +132,23 @@ class AppV1 extends Component {
 		super(props);
 		this.state = {
 			data: this.props.data,
-      version: this.props.version
+      version: this.props.version,
+      renderNum:0
 		}
 	}
 
 	componentDidMount(){
     //const files = this.state.data.filter(d => d.value !==null)
-    console.log(this.state.data);
-		var chartResults = chart(this.state.data, {
-      label: d => [...d.id.split(".").pop().split(/(?=[A-Z][a-z])/g), d.value.toLocaleString("en")].join("\n"),
+		var chartResults = chart(this.props.data.children, {
+      label: d => [...d.name.split(".").pop().split(/(?=[A-Z][a-z])/g), d.value.toLocaleString("en")].join("\n"),
       value: d => d.value,
-      group: d => d.id.split(".")[1],
-      title: d => `${d.id}\n${d.value.toLocaleString("en")}`,
+      group: d => d.name.split(".")[1],
+      title: d => `${d.name}\n${d.value.toLocaleString("en")}`,
       width: window.innerWidth/2, 
     })
-
-    console.log(chartResults[1]);
 		this.setState({
-			data: chartResults[1]
+			data: chartResults[1],
+      renderNum: 1,
 		})
 	}
 
@@ -160,9 +160,16 @@ class AppV1 extends Component {
     (this.state.version === 2) ?
     '':
     '';
-
-    console.log((this.state.data));
-
+    
+    if(this.state.renderNum > 0){
+      var chartResults = chart(this.props.data.children, {
+        label: d => [...d.name.split(".").pop().split(/(?=[A-Z][a-z])/g), d.value.toLocaleString("en")].join("\n"),
+        value: d => d.value,
+        group: d => d.name.split(".")[1],
+        title: d => `${d.name}\n${d.value.toLocaleString("en")}`,
+        width: window.innerWidth/2, 
+      })
+    }
 	  return (
 	      <div id="bubble">
 	      </div>

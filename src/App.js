@@ -3,18 +3,26 @@ import './App.css';
 import AppV1 from './AppV1';
 import AppV2 from './AppV2';
 import AppV3 from './AppV3';
+import AppV4 from './AppV4'
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-const data = 
-  [
-    {id: "Sandbox", name: "Sandbox",value:50},
-    {id: "Intra-Organziation", value:100},
-    {id: "Community Development", value:100},
-    {id: "ESG Fellowship", value:100},
-    {id: "Software", value:200},
-    {id: "Business Model Strategy", value:100},
-    ];
+const data = {
+	name: 'Eve',
+	value: 50,
+	children:  
+  	[
+	    {id: 0, name: "Sandbox",value:50},
+	    {id: 1,name: "Intra-Organziation", value:100},
+	    {id: 2,name: "Community Development", value:100},
+	    {id: 3,name: "ESG Fellowship", value:100},
+	    {id: 4,name: "Software", value:200},
+	    {id: 5,name: "Business Model Strategy", value:100},
+	    {id: 6,name: "ESG Fellowship", value:100},
+	    {id: 7,name: "Software", value:200},
+	    {id: 8,name: "Business Model Strategy", value:100},
+    ]
+}
 
 class App extends Component {
 	constructor(props){
@@ -29,6 +37,7 @@ class App extends Component {
 		document.querySelector('#tabOne').classList.add('bg-white');
 		document.querySelector('#tabTwo').classList.add('bg-black');
 		document.querySelector('#tabThree').classList.add('bg-white');
+		document.querySelector('#tabFour').classList.add('bg-white');
 	}
 	handleClick(e){
 		this.setState({
@@ -41,24 +50,33 @@ class App extends Component {
 			document.querySelector('#tabOne').classList.replace('bg-white', 'bg-black');
 			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabThree').classList.replace('bg-black', 'bg-white');
+			document.querySelector('#tabFour').classList.replace('bg-black', 'bg-white');
 			return <AppV1 data={data}/>;		
 		}else if(p === 'V2'){
 			if(document.querySelector('#tabOne')){
 				document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
 				document.querySelector('#tabTwo').classList.replace('bg-white', 'bg-black');
 				document.querySelector('#tabThree').classList.replace('bg-black', 'bg-white');
+				document.querySelector('#tabFour').classList.replace('bg-black', 'bg-white');
 			}
 			return <AppV2 data={data}/>
 		}else if(p === 'V3'){
 			document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabThree').classList.replace('bg-white', 'bg-black');
+			document.querySelector('#tabFour').classList.replace('bg-black', 'bg-white');
 			return <AppV3 data={data}/>
+		}else if(p === 'V4'){
+			document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
+			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
+			document.querySelector('#tabThree').classList.replace('bg-black', 'bg-white');
+			document.querySelector('#tabFour').classList.replace('bg-white', 'bg-black');
+			return <AppV4 data={data}/>
 		}
 	}
 	render(){
 	  var myTab = this.state.tab;
-	  const tabCount = 3;
+	  const tabCount = 4;
 
 	  return (
 	    <div>
@@ -72,7 +90,8 @@ class App extends Component {
 		      		[...Array(tabCount)].map((e, i) => {
 		      			const myTabNumber = (i === 0) ? 'One' :
 		      					(i === 1) ? 'Two' :
-		      					'Three';
+		      					(i === 2) ? 'Three' :
+		      					'Four';
 		      			return (<li id={'tab' + myTabNumber} onClick={(e) => this.handleClick(e)} className="float-left block rounded-lg text-[#19be87] text-center m-1.5 px-0.5">
 		      			{'V'+ (i+1)}
 		      			</li>)

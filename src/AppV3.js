@@ -9,16 +9,23 @@ class AppV3 extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			data: props.data,
+			data: [],
 		}
 
 		this.handler = this.handler.bind(this)
 	}
 
-	handler(id){	
-		var newData = this.state.data;
-		newData[id].value -= 5;
-		console.log(newData);
+	handler(id, action, value){	
+		var newData = this.props.data;
+
+		if(action === 'plus'){
+			newData.children[id].value += 5;
+		}else{
+			newData.children[id].value -= 5;
+		}
+		
+		newData.children[id].value = value
+		
 		this.setState({
 			data: newData
 		})
@@ -27,8 +34,8 @@ class AppV3 extends Component {
 	render(){
 	  return (
 	  	<div>
-	      <BubbleChart data={this.state.data}/>
-	      <AlterTableV2 handler={this.handler} data={this.state.data}/>
+	      <BubbleChart data={this.props.data}/>
+	      <AlterTableV2 handler={this.handler} data={this.props.data}/>
 	    </div>
 	  );
 	}

@@ -16,8 +16,8 @@ class AppV2 extends Component {
 	render(){
 	  return (
 	  	<div>
-	      <BubbleChart data={this.state.data}/>
-	      <AlterTable data={this.state.data}/>
+	      <BubbleChart data={this.props.data}/>
+	      <AlterTable data={this.props.data}/>
 	    </div>
 
 	  );

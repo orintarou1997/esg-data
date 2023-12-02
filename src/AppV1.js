@@ -15,7 +15,7 @@ class AppV1 extends Component {
 
 	render(){
 	  return (
-	      <BubbleChart data={this.state.data} version={1}/>
+	      <BubbleChart data={this.props.data} version={1}/>
 	  );
 	}
 }

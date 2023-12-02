@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
-
-var data = []
 //data hierarchy
-class AlterTableV2 extends Component {
+
+var data=[]
+class AlterTableV3 extends Component {
 	
 	constructor(props){
 		super(props);
@@ -11,6 +11,51 @@ class AlterTableV2 extends Component {
 			data: [],
 		}
 		this.handleClick = this.handleClick.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
+		this.handleAddition = this.handleAddition.bind(this);
+	}
+
+	handleAddition(e){
+		e.preventDefault();
+		// var newData = data;
+		// newData.children.push({
+		// 	id:data.children.length,
+		// 	name:e.target['name'].value,
+		// 	value:100,
+		// })
+
+		// const width = 528;
+		// const height = width;
+		// const margin = 1;
+
+		// const pack = d3.pack()
+		//       .size([width - margin * 2, height - margin * 2])
+		//       .padding(30);
+
+		// const root = pack(d3.hierarchy(newData)
+		//       .sum(d => d.value));
+
+		// this.setState({
+		//  	data: root.descendants().slice(1)
+		// })
+	}
+
+	handleDelete(item){
+		var newData = this.state.data;
+		console.log(newData);
+		for(var i in newData){
+		 	if(newData[i].data.id === item.data.id){
+		 		delete newData[i];
+		 	}
+		 }
+
+		// this.props.handleDeleteItem(item.data.name);
+
+		 console.log(newData);
+
+		this.setState({
+		 	data: newData
+	    })
 	}
 
 	handleClick(e, actionTitle){
@@ -65,15 +110,26 @@ class AlterTableV2 extends Component {
 	}
 
 	render(){
+		console.log(this.state);
 		 return (
-		    <div className='fixed h-[80vh] overflow-y-scroll right-[0%] top-[5%] w-2/4 pl-[10%] text-black'>
+		    <div className='fixed h-[80vh] overflow-y-scroll right-[0%] top-[5%] w-2/4 pl-[5%] text-black'>
+		    <span className="bg-[url('./scroll.png')] w-[40px] h-[40px] bg-contain fixed bottom-[6%] left-[70%]"></span>
+		    	<form className="fixed w-[100%]" onSubmit={(e) => this.handleAddition(e)}>
+			    	<input type="text" name="name" placeholder="Add Bubble..."class="mt-[10px] text-center w-[40%]">
+			    	</input>
+			    	<input value="+" type="submit"/>
+
+		    	</form>
+		    	
+		    	<hr class="h-[2px] w-[40%] my-8 bg-gray-200 border-0 dark:bg-gray-700"/>
+		    	<ul className="mt-[-4%]">
 		    	{
 		    		this.state.data.map((item) => {
 		    					return (
-		    						<div >
+		    						<div className="">
 		    							<span className="text-green-300">{item.data.value}</span>
 		    							<li className="rounded-lg border-black border-2 list-none mb-4 min-w-fit w-[40%] hover:bg-zinc-300">
-		    			
+		    							<span onClick ={e => this.handleDelete(item)} className=" hover:font-bold text-red-700 ml-[10px] mr-[10px]">X</span>
 		    							<span>{item.data.name}</span>
 		    								<span onClick={e => this.handleClick(item, 'minus')} className="float-right text-lg text-center w-[20px] mr-[10px] hover:bg-zinc-500">-</span>
 		    								<span onClick={e => this.handleClick(item, 'plus')} className="float-right text-lg text-center w-[20px]  hover:bg-zinc-500">+</span>
@@ -82,9 +138,11 @@ class AlterTableV2 extends Component {
 		    						)
 		    		})
 		    	}
+		    	</ul>
+		    	
 		    </div>
 		  );
 	}
 }
 
-export default AlterTableV2;
+export default AlterTableV3;
