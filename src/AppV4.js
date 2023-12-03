@@ -22,11 +22,11 @@ class AppV4 extends Component {
 	}
 
 
-	handleDelete(name){
+	handleDelete(id){
 		var newData = this.state.data;
-		for(var i in newData){
-			if(newData[i].id === name){
-				newData.splice(i, 1);
+		for(var i in newData.children){
+			if(newData.children[i].id === id){
+				newData.children.splice(i, 1);
 			}
 		}
 
@@ -38,13 +38,11 @@ class AppV4 extends Component {
 	handler(id, action, value){	
 		var newData = this.state.data;
 
-		if(action === 'plus'){
-			newData.children[id].value += 5;
-		}else{
-			newData.children[id].value -= 5;
+		for(var i in newData.children){
+			if (newData.children[i].id === id){
+				newData.children[i].value = value;
+			}
 		}
-		
-		newData.children[id].value = value
 		
 		this.setState({
 			data: newData
@@ -52,7 +50,6 @@ class AppV4 extends Component {
 	}
 
 	render(){
-		console.log(this.state.data);
 	  return (
 	  	<div>
 	      <BubbleChart data={this.state.data}/>

@@ -15,20 +15,28 @@ class AlterTableV2 extends Component {
 
 	handleClick(e, actionTitle){
 		var newData = this.state.data;
+		let myNewValue = 0;
+		console.log(newData);
 		
 		if(actionTitle === 'plus'){
-			newData[e.data.id].data.value += 5;	
+			for(var i in newData){
+				if(newData[i].data.id === e.data.id){
+					newData[i].data.value += 5;
+					myNewValue = newData[i].data.value;
+				}
+			}	
 		}else{
-			newData[e.data.id].data.value -= 5;
-		}
-
-		if (newData[e.data.id].data.value <= 0){
-			newData[e.data.id].data.value = 5;
+			for(var i in newData){
+				if(newData[i].data.id === e.data.id){
+					newData[i].data.value -= 5;
+					myNewValue = newData[i].data.value;
+				}
+			}	
 		}
 		
 		//var newValue = this.state.data[e.data.id].data.value;
 
-		this.props.handler(e.data.id, actionTitle, newData[e.data.id].data.value);
+		this.props.handler(e.data.id, actionTitle, myNewValue);
 		this.setState({
 			data: newData
 		})

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 //data hierarchy
 
-var data=[]
 class AlterTableV3 extends Component {
 	
 	constructor(props){
@@ -17,41 +16,17 @@ class AlterTableV3 extends Component {
 
 	handleAddition(e){
 		e.preventDefault();
-		// var newData = data;
-		// newData.children.push({
-		// 	id:data.children.length,
-		// 	name:e.target['name'].value,
-		// 	value:100,
-		// })
-
-		// const width = 528;
-		// const height = width;
-		// const margin = 1;
-
-		// const pack = d3.pack()
-		//       .size([width - margin * 2, height - margin * 2])
-		//       .padding(30);
-
-		// const root = pack(d3.hierarchy(newData)
-		//       .sum(d => d.value));
-
-		// this.setState({
-		//  	data: root.descendants().slice(1)
-		// })
 	}
 
 	handleDelete(item){
 		var newData = this.state.data;
-		console.log(newData);
 		for(var i in newData){
 		 	if(newData[i].data.id === item.data.id){
-		 		delete newData[i];
+		 		newData.splice(i,1);
 		 	}
 		 }
 
-		// this.props.handleDeleteItem(item.data.name);
-
-		 console.log(newData);
+		this.props.handleDeleteItem(item.data.id);
 
 		this.setState({
 		 	data: newData
@@ -60,20 +35,30 @@ class AlterTableV3 extends Component {
 
 	handleClick(e, actionTitle){
 		var newData = this.state.data;
-		
+		let myNewValue = 0;
+		console.log(newData);
+
 		if(actionTitle === 'plus'){
-			newData[e.data.id].data.value += 5;	
+			for(var i in newData){
+				if(newData[i].data.id === e.data.id){
+					newData[i].data.value += 5;
+					myNewValue = newData[i].data.value;
+				}
+			}	
 		}else{
-			newData[e.data.id].data.value -= 5;
+			for(var i in newData){
+				if(newData[i].data.id === e.data.id){
+					newData[i].data.value -= 5;
+					myNewValue = newData[i].data.value;
+				}
+			}	
 		}
 
-		if (newData[e.data.id].data.value <= 0){
-			newData[e.data.id].data.value = 5;
-		}
-		
-		//var newValue = this.state.data[e.data.id].data.value;
+		// if (newData[e.data.id].data.value <= 0){
+		// 	newData[e.data.id].data.value = 5;
+		// }
 
-		this.props.handler(e.data.id, actionTitle, newData[e.data.id].data.value);
+		this.props.handler(e.data.id, actionTitle, myNewValue);
 		this.setState({
 			data: newData
 		})
@@ -110,10 +95,10 @@ class AlterTableV3 extends Component {
 	}
 
 	render(){
-		console.log(this.state);
+
 		 return (
 		    <div className='fixed h-[80vh] overflow-y-scroll right-[0%] top-[5%] w-2/4 pl-[5%] text-black'>
-		    <span className="bg-[url('./scroll.png')] w-[40px] h-[40px] bg-contain fixed bottom-[6%] left-[70%]"></span>
+		    <span className="bg-[url('./scroll.png')] w-[40px] h-[40px] bg-contain fixed bottom-[6%] left-[75%]"></span>
 		    	<form className="fixed w-[100%]" onSubmit={(e) => this.handleAddition(e)}>
 			    	<input type="text" name="name" placeholder="Add Bubble..."class="mt-[10px] text-center w-[40%]">
 			    	</input>

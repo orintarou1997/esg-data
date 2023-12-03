@@ -15,22 +15,6 @@ class AppV3 extends Component {
 		this.handler = this.handler.bind(this)
 	}
 
-	handler(id, action, value){	
-		var newData = this.props.data;
-
-		if(action === 'plus'){
-			newData.children[id].value += 5;
-		}else{
-			newData.children[id].value -= 5;
-		}
-		
-		newData.children[id].value = value
-		
-		this.setState({
-			data: newData
-		})
-	}
-
 	render(){
 	  return (
 	  	<div>
