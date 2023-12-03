@@ -16,7 +16,6 @@ class AlterTableV2 extends Component {
 	handleClick(e, actionTitle){
 		var newData = this.state.data;
 		let myNewValue = 0;
-		console.log(newData);
 		
 		if(actionTitle === 'plus'){
 			for(var i in newData){
@@ -28,7 +27,7 @@ class AlterTableV2 extends Component {
 		}else{
 			for(var i in newData){
 				if(newData[i].data.id === e.data.id){
-					newData[i].data.value -= 5;
+					newData[i].data.value -= (newData[i].data.value === 5) ? 0 : 5;
 					myNewValue = newData[i].data.value;
 				}
 			}	

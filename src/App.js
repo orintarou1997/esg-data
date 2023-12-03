@@ -18,9 +18,6 @@ const data = {
 	    {id: 3,name: "ESG Fellowship", value:100},
 	    {id: 4,name: "Software", value:200},
 	    {id: 5,name: "Business Model Strategy", value:100},
-	    {id: 6,name: "ESG Fellowship", value:100},
-	    {id: 7,name: "Software", value:200},
-	    {id: 8,name: "Business Model Strategy", value:100},
     ]
 }
 

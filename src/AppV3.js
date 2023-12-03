@@ -12,7 +12,13 @@ class AppV3 extends Component {
 			data: [],
 		}
 
-		this.handler = this.handler.bind(this)
+		this.handler = this.handler.bind(this);
+	}
+
+	handler(id, action, value){	
+		this.setState({
+			data: []
+		})
 	}
 
 	render(){

@@ -20,9 +20,10 @@ class AlterTableV3 extends Component {
 
 	handleDelete(item){
 		var newData = this.state.data;
+		var myResults = [];
 		for(var i in newData){
 		 	if(newData[i].data.id === item.data.id){
-		 		newData.splice(i,1);
+		 		delete newData[i];
 		 	}
 		 }
 
@@ -48,15 +49,11 @@ class AlterTableV3 extends Component {
 		}else{
 			for(var i in newData){
 				if(newData[i].data.id === e.data.id){
-					newData[i].data.value -= 5;
+					newData[i].data.value -= (newData[i].data.value === 5) ? 0 : 5;
 					myNewValue = newData[i].data.value;
 				}
 			}	
 		}
-
-		// if (newData[e.data.id].data.value <= 0){
-		// 	newData[e.data.id].data.value = 5;
-		// }
 
 		this.props.handler(e.data.id, actionTitle, myNewValue);
 		this.setState({
@@ -96,6 +93,7 @@ class AlterTableV3 extends Component {
 
 	render(){
 
+		console.log(this.state);
 		 return (
 		    <div className='fixed h-[80vh] overflow-y-scroll right-[0%] top-[5%] w-2/4 pl-[5%] text-black'>
 		    <span className="bg-[url('./scroll.png')] w-[40px] h-[40px] bg-contain fixed bottom-[6%] left-[75%]"></span>
