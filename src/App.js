@@ -1,9 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import AppV1 from './AppV1';
-import AppV2 from './AppV2';
-import AppV3 from './AppV3';
-import AppV4 from './AppV4'
+import AppSelect from './AppSelect';
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
@@ -48,7 +45,7 @@ class App extends Component {
 			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabThree').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabFour').classList.replace('bg-black', 'bg-white');
-			return <AppV1 data={data} version={this.state.tab} />;		
+			return <AppSelect data={data} version={this.state.tab} />;		
 		}else if(p === 'V2'){
 			if(document.querySelector('#tabOne')){
 				document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
@@ -56,19 +53,19 @@ class App extends Component {
 				document.querySelector('#tabThree').classList.replace('bg-black', 'bg-white');
 				document.querySelector('#tabFour').classList.replace('bg-black', 'bg-white');
 			}
-			return <AppV2 data={data} version={this.state.tab}/>
+			return <AppSelect data={data} version={this.state.tab}/>
 		}else if(p === 'V3'){
 			document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabThree').classList.replace('bg-white', 'bg-black');
 			document.querySelector('#tabFour').classList.replace('bg-black', 'bg-white');
-			return <AppV3 data={data} version={this.state.tab}/>
+			return <AppSelect data={data} version={this.state.tab}/>
 		}else if(p === 'V4'){
 			document.querySelector('#tabOne').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabTwo').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabThree').classList.replace('bg-black', 'bg-white');
 			document.querySelector('#tabFour').classList.replace('bg-white', 'bg-black');
-			return <AppV4 data={data} version={this.state.tab}/>
+			return <AppSelect data={data} version={this.state.tab}/>
 		}
 	}
 	render(){
